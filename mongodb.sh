@@ -31,3 +31,6 @@ validate $? "adding mongo db"
 
 dnf install mongodb-org -y &>> $logfile
 validate $? "installing mongo db"
+
+systemctl enable --now mongod
+validate $? "starting and enabling mongodb"
