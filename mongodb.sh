@@ -17,7 +17,6 @@ if [ $userid -ne 0 ]; then
 echo -e "$Timestamp [error] $R please login with root $N " | tee -a $logfile
 exit 1
 fi
-
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 validate(){
     if [ $1 -ne 0 ]; then
@@ -34,3 +33,9 @@ validate $? "installing mongo db"
 
 systemctl enable --now mongod
 validate $? "starting and enabling mongodb"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+validate $? "allowing remote connections to mongodb"
+
+systemctl restart mongod
+validate $? "restarting mongod"
