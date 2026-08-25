@@ -28,3 +28,6 @@ validate(){
     fi
 }
 validate $? "adding mongo db"
+
+dnf install mongodb-org -y &>> $logfile
+validate $? "installing mongo db"
